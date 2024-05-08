@@ -1,0 +1,10 @@
+pandas
+seaborn
+matplotlib
+scikit-learn
+hopsworks
+streamlit
+parsedatetime
+pytz
+requests
+python-dotenv
