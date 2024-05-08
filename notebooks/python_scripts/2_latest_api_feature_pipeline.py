@@ -1,61 +1,55 @@
 # %% [markdown]
 # 
-# # Feature Pipeline
+# # Latest API data
 # This notebook consists of 3 parts:
 # 1. Get new data from the API
 # 2. Data preprocessing and feature engineering
 # 3. Creating or backfilling the feature group
 
 # %%
-import random
-import pandas as pd
-import hopsworks 
+# Standard library imports for utilities and data manipulation
 import uuid
-import pytz
-import requests
-import json
+import os
+from datetime import datetime, timedelta
 import io
 import base64
-from datetime import datetime, timedelta
 
-import os
-from dotenv import load_dotenv  
-load_dotenv()                    
+# External libraries for data handling, networking, and time zones
+import pandas as pd
+import requests
+import json
+import pytz
+
+# Environment variable management
+from dotenv import load_dotenv
+load_dotenv()
+
+# Hopsworks
+import hopsworks                
 
 # %% [markdown]
-# ## API
+# ## 1. Get new data from the API
 # 
 # ### Sensor Data Access
 # 
+# Here is the information given by the company so we can acces thir data.
 # 
-# GET request to `data.sensade.com`
-# 
-# Authentication: `Basic Auth` (user: miknie20@student.aau.dk, password: GitHub Secret)
-# 
-# {
-# 
-#     "dev_eui": "0080E115003BEA91",
-# 
-#     "from": "2024-03-01",
-# 
-#     "to": "2024-03-08"
-# 
-# }
+# - GET request to `data.sensade.com` 
+# - Authentication: `Basic Auth` (user: miknie20@student.aau.dk, password: GitHub Secret)
 # 
 # ### Sensors
 # 
-# Two sensors installed at Novi:
+# Two sensors installed:
 # 
-# `0080E115003BEA91` (Hw2.0 Fw2.0) Installed towards building
+# - `0080E115003BEA91` (Hw2.0 Fw2.0) Installed towards building
 # 
-# `0080E115003E3597` (Hw2.0 Fw2.0) Installed towards bike lane
+# - `0080E115003E3597` (Hw2.0 Fw2.0) Installed towards bike lane
 
 # %%
 # Create a timezone object for GMT+2
 timezone = pytz.timezone('Europe/Bucharest')
-
-now = datetime.now(pytz.utc)  # Get current time in UTC
-today = now.astimezone(timezone)  # Convert current time to the desired timezone
+now = datetime.now(pytz.utc)  # Get current time 
+today = now.astimezone(timezone)  # Convert to current timezone
 yesterday = today - timedelta(days=1)
 tomorrow = today + timedelta(days=1)
 
@@ -67,7 +61,7 @@ formatted_yesterday = yesterday.strftime('%Y-%m-%d')
 url = "https://data.sensade.com"
 dev_eui_building = "0080E115003BEA91"
 dev_eui_bikelane = "0080E115003E3597"
-username = "miknie20@student.aau.dk"
+username = "ajakup20@student.aau.dk"
 basic_auth = base64.b64encode(f"{username}:{os.getenv('API_PASSWORD')}".encode())
 headers = {
     'Content-Type': 'application/json',
@@ -75,7 +69,7 @@ headers = {
 }
 
 # %%
-# API call for the building parking spot
+# API call that takes the data from given sensor from yesterday until tomorrow
 def API_call(dev_eui, from_date, to_date):
     payload = json.dumps({
     "dev_eui": dev_eui,
@@ -95,17 +89,22 @@ def API_call(dev_eui, from_date, to_date):
     return df
 
 # %%
+# Running the API call function with the given parameters on the building sensor
 df_building_from_api = API_call(dev_eui_building, formatted_yesterday, formatted_tomorrow)
 
 # %%
+# Running the API call function with the given parameters on the bikelane sensor
 df_bikelane_from_api = API_call(dev_eui_bikelane, formatted_yesterday, formatted_tomorrow)
 
 # %%
+# Defning the newest data from the API calls
 df_building_newest = df_building_from_api.tail(1)
 df_bikelane_newest = df_bikelane_from_api.tail(1)
 
 # %% [markdown]
-# ## Preprocessing and feature engineering
+# ## 2. Preprocessing and feature engineering
+# 
+# We apply the same methods as in notebook 1: creating unique IDs, converting the time column, converting radar names, changing data types to floats, and finally creating an empty column for the mag_cluster, as we haven't applied our models yet.
 
 # %%
 # Create a unique identifier for each row in the datasets
@@ -185,8 +184,5 @@ building_fg.insert(df_building)
 # %% [markdown]
 # ## **Next up:** 3: Feature view creation
 # Go to the 3_featureview_creation.ipynb notebook
-
-# %% [markdown]
-# 
 
 
