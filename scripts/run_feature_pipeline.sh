@@ -5,6 +5,7 @@ set -e
 cd notebooks/python_scripts
 #set the API_PASSWORD
 export API_PASSWORD=$API_PASSWORD
+export API_USERNAME=$API_USERNAME
 
 # Run the feature pipeline
 python 2_latest_api_feature_pipeline.py
