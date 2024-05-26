@@ -29,4 +29,5 @@ jobs:
         env:
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
           API_PASSWORD: ${{ secrets.API_PASSWORD }}
+          API_USERNAME: ${{ secrets.API_USERNAME }}
         run: ./scripts/run_feature_pipeline.sh
