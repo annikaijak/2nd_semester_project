@@ -237,6 +237,11 @@ df_bikelane = df_bikelane.drop(columns=['date'])
 # ## Feature Engineering
 
 # %%
+#Adding two hours to datetime to match the timezone
+df_bikelane['time'] = df_bikelane['time'] + pd.Timedelta(hours=2)
+df_building['time'] = df_building['time'] + pd.Timedelta(hours=2)
+
+# %%
 # Create a unique identifier for each row in the datasets
 def create_id(df, dataset_name):
     # Assign the sensor prefix based on the dataset name
