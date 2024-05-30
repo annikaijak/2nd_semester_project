@@ -1,6 +1,6 @@
 # 🚀 Data Engineering and Machine Learning Operations in Business - MLOps Assignment 🤖
 
-This repository contains all resources for the final assignment of the MLOps Module. Our project aims to develop a scalable Parking Occupancy Detection System that leverages sensor data for live vehicle detection at two parking spots near an office building. This tool can help parking operators, businesses, and city planners optimize parking space utilization.
+This repository contains all resources for the 2nd semester project. Our project aims to improve the understanding of unfluencing features and develop a scalable Parking Occupancy Detection (POD) System that leverages sensor data, and weather variables, for two parking spots near an office building. This tool can help parking operators, businesses, and city planners optimize parking space utilization.
 
 ## 👥 Group Members
 
@@ -8,25 +8,15 @@ This repository contains all resources for the final assignment of the MLOps Mod
 - Mikkel Ørts Nielsen - 20205211
 
 ## 🚗 Live Status on Two Parking Spots
----> [Parking Occupancy Detection](https://huggingface.co/spaces/AM-MLOps/Parking_occupancy_detection) <---
+---> [Parking Occupancy Detection](https://huggingface.co/spaces/AM-MLOps/POD_System_Sensor_Data) <---
 
-**This application is divided into 5 tabs:**
+**This application is divided into 2 tabs:**
 
-- Parking lot status: The first tab includes the actual interface, where the goal has been to make a simple UI which shows if 2 parking spaces are occupied or available.
-- Magnetic Field Explorer: The second tabs is made for exploring the models, where the user can test different values for x, y and z and get a prediction
-- About: In the third tab you can get some information about the interface.
-- Dataset and visualisations: The fourth tab contains an overview of the training data and also includes EDAs for each individual parking space. The goal with these EDAs is to give you some information about when the parking spaces usually are occupied.
-- Model Performance: The fifth tab explains how the underlying Machine Learning Model performs and how the predictor works.
+The first tab displays the parking space near the building, and the second tab shows the parking space near the bike lane.
 
-## 📝 Assignment Requirements
+Both tabs contain two small data frames with the latest predictions on whether or not there is a vehicle detected in the parking lot. One data frame shows predictions based on electromagnetic field data, and the other is based on weather data.
 
-- **A Prediction System:** An ML-based solution to accurately predict parking occupancy and vehicle type.
-- **API Integration:** Real-time data acquisition via external sensors.
-- **Interactive Interface:** A user-friendly dashboard for visualizing the prediction results.
-
-## 🎯 Assignment Objective
-
-The objective for the assignment is to identify reliable methods and developer platforms for programming a Parking Occupancy Detection System running on a Serverless Machine Learning Pipeline.
+Below the two data frames are two graphs that visualize the normalized values of both the electromagnetic field data and radar data. These graphs can help the user understand when a vehicle is parked or not.
 
 ## 📂 Structure
 
@@ -34,13 +24,11 @@ The objective for the assignment is to identify reliable methods and developer p
 
 The data has been accessed through a collaboration with a major provider of wireless parking sensors in Denmark. The company gathers both historical and real-time sensor data which can be accessed through their RESTful API. In addition to this, the company also offers customers access to a platform with an overview of the parking conditions in different cities. 
 
-At first we got access to 9 CSV-files with extract data from 9 parking places; 3 normal parking places, 3 forbidden areas and 3 parking places with charging stations. We chose to make the initial pipeline using data from the 3 parking places with charging stations; EL1, EL2 and EL3. The reasoning behind this decision is that our supervisor and we assumed that it would be easier to detect if a vehicle was located in the parking place due to them having to park close to the charging stations. We assumed that the parking varied more in normal parking places than in those having charging stations. 
-
-These 9 CSV-files can be found in the *data* folder.
-
-One week before hand-in, we got access to the company’s RESTful API. This gave us access to two parking spaces outside the company’s office. As one of the parking places was nearer the building and the other closer to a bike lane, we differ between them as “building” and “bikelane”. The final pipeline is built using data from these two parking places
+We got access to the company’s RESTful API. This gave us access to two parking spaces outside the company’s office. As one of the parking places was nearer the building and the other closer to a bike lane, we differ between them as “building” and “bikelane”. The final pipeline is built using data from these two parking places
 
 Historical data from the API is saved in two CSV-files found in the folder *notebooks*.
+
+Furthermore, the  Open-meteo API is used to gather both historical and real-time data. For the historical data, we went to Open-meteo’s historical weather API, selected the geographical coordinates of the two parking places we got access to and specified the time interval to 1st of March to the 30th of April. 
 
 ### 📓 Notebooks
 
@@ -54,7 +42,7 @@ The five notebooks in the folder "**notebooks**" are the final notebooks require
 
 ### 📊 EDA
 
-To get a better understanding of the datasets, we made some exploratory data analysis (EDA) notebooks at the start of the process. We first made an EDA for EL1 and then copied this notebook to explore the other datasets in the same manner. Our findings from these EDAs can be found under *notebooks* in the *EDA* folder.
+To get a better understanding of the datasets, we made some exploratory data analysis (EDA) notebooks at the start of the process. We first made an EDA for the building parking lot and then copied this notebook to explore the other parking spot in the same manner. Our findings from these EDAs can be found under *notebooks* in the *EDA* folder.
 
 ### 🧠 Models
 
