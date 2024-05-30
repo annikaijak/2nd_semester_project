@@ -1,6 +1,6 @@
 # 🚀 Data Engineering and Machine Learning Operations in Business - MLOps Assignment 🤖
 
-This repository contains all resources for the 2nd semester project. Our project aims to improve the understanding of unfluencing features and develop a scalable Parking Occupancy Detection (POD) System that leverages sensor data, and weather variables, for two parking spots near an office building. This tool can help parking operators, businesses, and city planners optimize parking space utilization.
+This repository contains all resources for the 2nd semester project. Our project aims to improve the understanding of unfluencing features and develop a scalable Serverless Parking Occupancy Detection System that leverages sensor data, and weather variables, for two parking spots near an office building. This tool can help parking operators, businesses, and city planners optimize parking space utilization.
 
 ## 👥 Group Members
 
