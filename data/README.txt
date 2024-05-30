@@ -31,3 +31,6 @@ The columns are the following:
 •	dr: data rate parameter in LoRaWAN. It ranges between 1 and 5 where 1 is the slowest transmission data rate and 5 is the highest. This datarate is scaled by the network server depending on the signal quality of the past packages send.
 •	SNR: signal to noise ratio – the higher value, the better the signal quality
 •	RSSI: signal strength – the higher value, the better the signal quality
+
+
+•	For information about the weather data visit https://open-meteo.com/en/docs
