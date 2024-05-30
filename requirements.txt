@@ -13,3 +13,4 @@ requests-cache
 retry-requests
 numpy
 tensorflow
+joblib
